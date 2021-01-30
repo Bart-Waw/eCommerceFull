@@ -4,7 +4,7 @@ import { addToCart } from '../actions/cartActions';
 
 export function CartPage(props) {
     const cart = useSelector(state => state.cart);
-    const {cartItems} = cart;
+    const { cartItems } = cart;
 
     const itemID = props.match.params.id;
     const qty = props.location.search? Number(props.location.search.split("=")[1]):1;
@@ -23,14 +23,13 @@ export function CartPage(props) {
                 <ul className='cart-list-container'>
                     <li>
                         <h3>Shopping Cart</h3>
-                        <div>Price</div>
                     </li>
                     <li>
                         {
                             cartItems.length === 0 ?
                             <div>Your cart is empty</div> :
                             cartItems.map(item => 
-                                <div>
+                                <div className='cart-item'>
                                     <img src={item.image} alt='item' ></img>
                                     <div className='cart-name'>
                                         <div>
@@ -40,7 +39,7 @@ export function CartPage(props) {
                                             Quantity: {item.qty}
                                         </div>
                                         <div>
-                                            {item.price}
+                                            Price: £{item.qty * item.price}
                                         </div>
                                     </div>
                                 </div>)

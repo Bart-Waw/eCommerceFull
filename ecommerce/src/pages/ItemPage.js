@@ -23,14 +23,12 @@ export function ItemPage (props) {
 
 
     return (
-            
+        loading? <div className="loading"><img src='../images/loading.gif' alt="loading"></img></div> : 
+        error? <div>{error}</div> : 
             <div>
                 <div>
                     <Link to='/'>Return to HomePage</Link>
                 </div>
-            {loading? <div><img className="loading" src='../images/loading.gif' alt="loading"></img></div> : 
-            error? <div>{error}</div> : 
-            (
                 <div className='itemDetails'>
                     <div className='itemMain'>
                         <h1 className="item-name">{item.name}</h1>
@@ -62,7 +60,6 @@ export function ItemPage (props) {
                         </ul>
                     </div>
                 </div>
-            )}
             </div>
         )
 }

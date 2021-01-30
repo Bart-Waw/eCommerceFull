@@ -48,23 +48,21 @@ body {
 
 .main {
   grid-area: main;
+  display: flex;
+  width: 100%;
 }
 
 .content {
-  display: inline-flex;
+  display: flex;
+
   align-items: center;
+  width: 100%;
 }
 
 .footer {
   grid-area: footer;
   background-color:rgb(46, 115, 161);
   color:white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.products {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,7 +100,7 @@ body {
   font-weight: bold;
 }
 
-.item-name :hover {
+.item-name:hover {
   color:darkred;
 }
 
@@ -171,7 +169,7 @@ body {
 }
 
 
-/* Cart */
+/* Cart Page */
 
 .cart-list-container {
   display: inline-flex;
@@ -182,6 +180,7 @@ body {
 
 .cart-list-container ul {
   display: inline-flex;
+  flex-direction: row;
   flex: 0 1 34rem;
   margin: 1rem;
   height: auto;
@@ -194,11 +193,97 @@ body {
 }
 
 .cart-list-container img {
-  max-width: 34rem;
-  max-height: 34rem;
+  max-width: 15rem;
+  max-height: 15rem;
   padding-bottom: 20px;
 }
 
+.cart-item {
+  border-top: .1rem gray solid;
+  padding: 10px;
+}
+
+
+
+/* Log in Page */
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: row;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 32rem;
+  padding: 2rem;
+  border: .1rem rgb(185, 186, 187) solid;
+  background-color:rgb(224, 232, 240);
+  border-radius: .5rem;
+  list-style-type: none;
+}
+
+.form-container li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-container input {
+  padding: 1rem;
+  border: .1rem rgb(189, 187, 178) solid;
+  border-radius: 1rem;
+}
+
+.primary-button  {
+  width: 100%;
+  height: 3rem;
+  margin: auto;
+  border: .1rem rgb(189, 187, 178) solid;
+  border-radius: 20px;
+  margin-top: 10px;
+  background-color:rgb(250, 228, 103);
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background-color:rgb(230, 192, 25);
+}
+
+.register-button {
+  width: 100%;
+  height: 3rem;
+  margin: auto;
+  border: .1rem rgb(189, 187, 178) solid;
+  border-radius: 20px;
+  margin-top: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color:rgb(255, 245, 185);
+}
+
+.register-button:hover {
+  background-color:rgb(230, 192, 25);
+}
+
+
+/* Item List + Add Item page */
+
+.items-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+.item-header {
+  text-align: center;
+}
 
 
 /* Sidebar */
@@ -275,7 +360,14 @@ body {
 
 
 /* loading */
-.loading {
-  height: 80px;
-  width: 80px;
+.loading{
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.loading img {
+  height: 70px;
+  width: 70px;
 }

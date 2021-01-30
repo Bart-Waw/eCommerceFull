@@ -18,15 +18,15 @@ export function HomePage (props) {
     
 
     return (
-        loading? <div><img className="loading" src='../images/loading.gif' alt="loading"></img></div> : 
+        loading? <div className="loading"><img src='../images/loading.gif' alt="loading"></img></div> : 
         error? <div>{error}</div> :
         <div>
             <ul className="items">
                 {
                 items.map(item =>
-                    <li key={item.id}>
+                    <li key={item._id}>
                     <div className="item">
-                        <Link to={'/items/' + item.id}>
+                        <Link to={'/item/' + item._id}>
                             <img className="item-image" src={item.image} alt="white t-shirt"></img>
                             <div className="item-name">{item.name}</div>
                         </Link>
