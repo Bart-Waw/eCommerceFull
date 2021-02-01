@@ -7,6 +7,9 @@ import {BrowserRouter, Route, Link} from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
 import { useSelector } from 'react-redux';
 import { RegisterPage } from './pages/RegisterPage'
+import { ShippingPage } from './pages/ShippingPage';
+import { PaymentPage } from './pages/paymentPage';
+import { PlaceOrderPage } from './pages/placeOrderPage';
 
 
 function App() {
@@ -32,7 +35,7 @@ function App() {
                 </div>
                 <div className="header-links">
                     {
-                        userInfo ? <Link to ='/profile'>{userInfo.name}</Link> : <Link to ='/Login'>Log In</Link>
+                        userInfo ? <Link to ={ userInfo.name === 'Admin' ? '/items' : '/profile'}>{userInfo.name}</Link> : <Link to ='/Login'>Log In</Link>
                     }
                     <Link to ='/cart'>Cart</Link>
                 </div>
@@ -45,10 +48,10 @@ function App() {
                 </div>
                 <ul className="sidebar-main">
                     <li>
-                        <a href="index.html">Shirts</a>
+                        <button>Clothing</button>
                     </li>
                     <li>
-                        <a href="index.html">Jeans</a>
+                        <button>Footwear</button>
                     </li>
                 </ul>
             </aside>
@@ -60,6 +63,9 @@ function App() {
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/item/:id" component={ItemPage} />
                 <Route path="/cart/:id?" component={CartPage} />
+                <Route path="/shipping" component={ShippingPage} />
+                <Route path="/payment" component={PaymentPage} />
+                <Route path="/placeOrder" component={PlaceOrderPage} />
                 <Route path="/" component={HomePage} exact={true} />
                 </div>
             </main>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listItems, saveItem } from '../actions/itemActions';
+import { listItems, saveItem, deleteItem } from '../actions/itemActions';
 
 export function ItemsPage (props) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -11,10 +11,15 @@ export function ItemsPage (props) {
     const [category, setCategory] = useState('');
     const [stock, setStock] = useState('');
     const [description, setDescription] = useState('');
+
     const itemSave = useSelector(state => state.itemSave);
     const { loading: loadingSave, success: successSave, error: errorSave } = itemSave;
+
+    const itemDelete = useSelector(state => state.itemDelete);
+    const { success: successDelete } = itemDelete;
+
     const itemList = useSelector(state => state.itemList)
-    const { loading, items, error } = itemList;
+    const { items } = itemList;
     const dispatch = useDispatch();
 
 
@@ -26,7 +31,7 @@ export function ItemsPage (props) {
         return () => {
 
         };
-    }, [successSave]);
+    }, [dispatch, successSave, successDelete]);
 
     const openModal = (item) => {
         setModalVisible(true);
@@ -44,6 +49,10 @@ export function ItemsPage (props) {
         dispatch(saveItem({ _id: ID, name, price, image, category, stock, description }));
     };
 
+    const handleDelete = (item) => {
+        dispatch(deleteItem(item._id));
+    };
+
     return (
         <div className='items-content'>
             <div className='item-header'>
@@ -56,34 +65,34 @@ export function ItemsPage (props) {
                 <form onSubmit={handleSubmit}>
                     <ul className='form-container'>
                         <li>
-                            <h3>Create Item</h3>
+                            <h3>Add New Item</h3>
                         </li>
                         <li>
                             {loadingSave && <div className="loading"><img src='../images/loading.gif' alt="loading"></img></div>}
                             {errorSave && {errorSave}}
                         </li>
                         <li>
-                            <label for='name'>Name</label>
+                            <label htmlFor='name'>Name</label>
                             <input type='name' name='text' id='name' value={name} onChange={(event) => setName(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='price'>Price</label>
+                            <label htmlFor='price'>Price</label>
                             <input type='text' name='price' id='price' value={price} onChange={(event) => setPrice(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='image'>Image</label>
+                            <label htmlFor='image'>Image</label>
                             <input type='text' name='image' id='image' value={image} onChange={(event) => setImage(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='category'>Category</label>
+                            <label htmlFor='category'>Category</label>
                             <input type='text' name='category' id='category' value={category} onChange={(event) => setCategory(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='stock'>Stock</label>
+                            <label htmlFor='stock'>Stock</label>
                             <input type='text' name='stock' id='stock' value={stock} onChange={(event) => setStock(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='description'>Description</label>
+                            <label htmlFor='description'>Description</label>
                             <textarea type='text' name='description' id='description' value={description} onChange={(event) => setDescription(event.target.value)}></textarea>
                         </li>
                         <li>
@@ -104,8 +113,9 @@ export function ItemsPage (props) {
                         <th>Price</th>
                         <th>Image</th>
                         <th>Category</th>
+                        <th>Stock</th>
                         <th>Description</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -116,10 +126,11 @@ export function ItemsPage (props) {
                             <td>{item.price}</td>
                             <td>{item.image}</td>
                             <td>{item.category}</td>
+                            <td>{item.stock}</td>
                             <td>{item.description}</td>
                             <td>
                                 <button onClick={() => openModal(item)}>Edit</button>
-                                <button>Delete</button>
+                                <button onClick={() => handleDelete(item)}>Delete</button>
                             </td>
                         </tr>
                     ))}

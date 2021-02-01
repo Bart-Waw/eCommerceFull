@@ -19,3 +19,32 @@ export const addToCart = (itemID, qty) => async (dispatch, getState) => {
         //
     }
 }
+
+export const removeFromCart = (itemID) => (dispatch, getState) => {
+    try {
+        dispatch({type: 'REMOVE_ITEM_FROM_CART', payload: itemID});
+        const { cart: { cartItems }} = getState();
+        Cookie.set('cartItems', JSON.stringify(cartItems));
+    }
+    catch(error) {
+        //
+    }
+}
+
+export const saveShipping = (data) => (dispatch,) => {
+    try{
+        dispatch({type: "SAVE_SHIPPING", payload: data});
+    }
+    catch(error) {
+        //
+    }
+}
+
+export const savePayment = (data) => (dispatch,) => {
+    try{
+        dispatch({type: "SAVE_PAYMENT", payload: data});
+    }
+    catch(error) {
+        //
+    }
+}

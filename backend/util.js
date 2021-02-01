@@ -22,13 +22,15 @@ export const isAuth = (req, res, next) => {
                 return res.status(401).send({msg: 'Invalid Token' })
             }
             else {
-                req.user = token;
+                req.user = decode;
                 next();
                 return
             }
         })
     }
-    return res.statu(401).send({msg: 'Token was not supplied' })
+    else {
+        return res.status(401).send({msg: 'Token was not supplied' })
+    }
 }
 
 export const isAdmin = (req, res, next) => {

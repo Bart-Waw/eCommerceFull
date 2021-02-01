@@ -47,7 +47,7 @@ export function ItemPage (props) {
                                 <li>Quantity: 
                                 <select value={qty} onChange={(event) => {setQty(event.target.value)}}>
                                     {[...Array(item.stock).keys()].map(option => 
-                                    <option key={option+1} value={option+1}>{option+1}</option>)}
+                                    <option value={option+1}>{option+1}</option>)}
                                 </select>
                             </li>
                             }

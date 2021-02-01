@@ -11,13 +11,16 @@ export function LoginPage (props) {
     const { loading, userInfo, error } = userLogin;
     const dispatch = useDispatch();
 
+    const redirect = props.location.search?props.location.search.split('=')[1]:'/';
+
+
     useEffect(() => {
         if (userInfo) {
-            props.history.push('/')
+            props.history.push(redirect)
         }
         return () => {
         };
-    }, [userInfo, props.history]);
+    }, [userInfo, redirect, props.history]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -47,7 +50,7 @@ export function LoginPage (props) {
                             <button type='submit' className='primary-button'>Log In</button>
                         </li>
                         <li>
-                        <Link to='/register'><button className='register-button'>Register new account</button></Link>
+                        <Link to={redirect === '/' ? '/register' : '/register?redirect='}><button className='register-button'>Register new account</button></Link>
                         </li>
                     </ul>
                 </form>

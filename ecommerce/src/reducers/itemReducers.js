@@ -55,3 +55,23 @@ export function itemSaveReducer(state = {items: []}, action) {
             return state
     }
 }
+
+export function itemDeleteReducer(state = {item: {}}, action) {
+    switch (action.type) {
+        case "ITEM_DELETE_REQUEST":
+            return{loading: true}
+        case "ITEM_DELETE_SUCCESS":
+            return{
+                loading: false,
+                success: true,
+                item: action.payload
+            }
+        case "ITEM_DELETE_FAIL":
+            return {
+                loading: false,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+}

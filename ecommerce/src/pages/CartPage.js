@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 
 export function CartPage(props) {
     const cart = useSelector(state => state.cart);
@@ -16,6 +16,7 @@ export function CartPage(props) {
             dispatch(addToCart(itemID, qty))
         }
     }, [dispatch, itemID, qty])
+
 
     return (
         <div className='cart'>
@@ -40,6 +41,9 @@ export function CartPage(props) {
                                         </div>
                                         <div>
                                             Price: £{item.qty * item.price}
+                                        </div>
+                                        <div>
+                                            <button onClick={() => dispatch(removeFromCart(item._id))}>Remove</button>
                                         </div>
                                     </div>
                                 </div>)

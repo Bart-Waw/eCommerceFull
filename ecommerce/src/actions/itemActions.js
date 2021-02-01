@@ -43,3 +43,17 @@ export const saveItem = (item) => async (dispatch, getState) => {
         dispatch({ type: 'ITEM_SAVE_FAIL', payload: error.message});
     }
 }
+
+export const deleteItem = (itemID) => async (dispatch, getState) => {
+    try {
+        const { userLogin: {userInfo}} = getState();
+        dispatch({type: 'ITEM_DELETE_REQUEST', payload: itemID});
+        const {data} = await axios.delete('/api/items/' + itemID, {headers: {
+            'Authorization': 'Bearer ' + userInfo.token
+        }});
+        dispatch({type: 'ITEM_DELETE_SUCCESS', payload: data, success: true})
+    }
+    catch(error) {
+        dispatch({type: 'ITEM_DELETE_FAIL', payload: error.message});
+    }
+}

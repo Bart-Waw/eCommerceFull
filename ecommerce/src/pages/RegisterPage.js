@@ -37,19 +37,19 @@ export function RegisterPage (props) {
                             {error && {error}}
                         </li>
                         <li>
-                            <label for='name'>Name</label>
+                            <label htmlFor='name'>Name</label>
                             <input type='text' name='name' id='name' onChange={(event) => setName(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='email'>Email</label>
+                            <label htmlFor='email'>Email</label>
                             <input type='email' name='email' id='email' onChange={(event) => setEmail(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='password'>Password</label>
+                            <label htmlFor='password'>Password</label>
                             <input type='password' name='password' id='password' onChange={(event) => setPassword(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='repeatPassword'>Repeat Password</label>
+                            <label htmlFor='repeatPassword'>Repeat Password</label>
                             <input type='password' name='repeatPassword' id='repeatPassword' onChange={(event) => setRepeatPassword(event.target.value)}></input>
                         </li>
                         <li>
