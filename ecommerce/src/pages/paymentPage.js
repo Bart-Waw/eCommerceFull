@@ -10,8 +10,13 @@ export function PaymentPage (props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(savePayment({paymentMethod}));
-        props.history.push('placeorder');
+        if (!paymentMethod) {
+            window.alert('Please choose payment method');
+        }
+        else {
+            dispatch(savePayment({paymentMethod}));
+            props.history.push('placeorder');
+        }
     };
 
     return (

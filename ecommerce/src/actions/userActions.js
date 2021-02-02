@@ -9,8 +9,15 @@ export const login = (email, password) => async (dispatch) => {
         Cookie.set('userInfo', JSON.stringify(data));
     }
     catch (error) {
-        dispatch({type: 'USER_LOGIN_FAIL', payload: error.message});
+        dispatch({type: 'USER_LOGIN_FAIL', payload: error.msg});
+        window.alert('Invalid Email or Password');
     }
+}
+
+export const logout = () => (dispatch) => {
+    dispatch({type: "USER_LOGOUT"});
+    Cookie.set('userInfo', null);
+    Cookie.set('cartItems', []);
 }
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -21,6 +28,6 @@ export const register = (name, email, password) => async (dispatch) => {
         Cookie.set('userInfo', JSON.stringify(data));
     }
     catch (error) {
-        dispatch({type: 'USER_REGISTER_FAIL', payload: error.message});
+        dispatch({type: 'USER_REGISTER_FAIL', payload: error.msg});
     }
 }

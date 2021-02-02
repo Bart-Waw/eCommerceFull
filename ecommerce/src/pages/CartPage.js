@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 
 export function CartPage(props) {
+
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
 
@@ -22,10 +24,10 @@ export function CartPage(props) {
         <div className='cart'>
             <div className='cart-list'>
                 <ul className='cart-list-container'>
-                    <li>
+                    <li key ='cart-page-name'>
                         <h3>Shopping Cart</h3>
                     </li>
-                    <li>
+                    <li key ='cart-page-items'>
                         {
                             cartItems.length === 0 ?
                             <div>Your cart is empty</div> :
@@ -50,9 +52,11 @@ export function CartPage(props) {
                         }
                     </li>
                 </ul>
-            </div>
-            <div className='cart-action'>
-
+                {cartItems.length !== 0 &&
+                    <div className='cart-action'>
+                        <Link to='/Shipping'><button className='primary-button'>Checkout</button></Link>
+                    </div>  
+                }
             </div>
         </div>
         )

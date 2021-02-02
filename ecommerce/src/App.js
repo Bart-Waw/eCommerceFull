@@ -1,65 +1,58 @@
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import {BrowserRouter, Route, Link} from 'react-router-dom';
 import {HomePage} from './pages/HomePage';
 import {ItemsPage} from './pages/ItemsPage';
 import {ItemPage} from './pages/ItemPage';
 import {CartPage} from './pages/CartPage';
-import {BrowserRouter, Route, Link} from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
-import { useSelector } from 'react-redux';
 import { RegisterPage } from './pages/RegisterPage'
 import { ShippingPage } from './pages/ShippingPage';
 import { PaymentPage } from './pages/paymentPage';
 import { PlaceOrderPage } from './pages/placeOrderPage';
+import { logout } from './actions/userActions';
+import { LogoutPage } from './pages/LogoutPage';
 
+// sidebar moved to utils.js
 
 function App() {
+
+    const dispatch = useDispatch();
     
     const userLogin = useSelector(state => state.userLogin);
     const {userInfo} = userLogin;
-    
-    function openMenu () {
-        document.querySelector(".sidebar").classList.add("open");
-    }
 
-    function closeMenu () {
-        document.querySelector(".sidebar").classList.remove("open");
-    }
+    const handleLogout = () => {
+        dispatch(logout());
+        window.location.reload(false);
+    };
 
     return (
         <BrowserRouter>
         <div className="grid-container">
             <header className="header">
                 <div className="brand">
-                    <button onClick={openMenu}>☰</button>
-                    <Link to ='/'>eCommerce</Link>
+                        <div className='header-link'><Link to ='/'>eCommerce</Link></div>
                 </div>
                 <div className="header-links">
                     {
-                        userInfo ? <Link to ={ userInfo.name === 'Admin' ? '/items' : '/profile'}>{userInfo.name}</Link> : <Link to ='/Login'>Log In</Link>
+                        userInfo ?
+                            <div className='logged-link'>Logged as:<div className='header-link'><Link to ={ userInfo.name === 'Admin' ? '/items' : '/profile'}>{userInfo.name}</Link></div></div>
+                        :
+                            <div className='header-link'><Link to ='/Login'>Log In</Link></div>
                     }
-                    <Link to ='/cart'>Cart</Link>
+                    {
+                        userInfo && <div><button className='header-button' onClick={handleLogout}><Link to ='/LogoutPage'>Log Out</Link></button></div>
+                    }
+                    <div className='header-link'><Link to ='/cart'>Cart</Link></div>
                 </div>
             </header>
-
-            <aside className="sidebar">
-                <div className="sidebar-header">
-                    <h3>Shopping Categories</h3>
-                    <button onClick={closeMenu}>✖</button>
-                </div>
-                <ul className="sidebar-main">
-                    <li>
-                        <button>Clothing</button>
-                    </li>
-                    <li>
-                        <button>Footwear</button>
-                    </li>
-                </ul>
-            </aside>
 
             <main className="main">
                 <div className="content">
                 <Route path="/items" component={ItemsPage} />
                 <Route path="/LogIn" component={LoginPage} />
+                <Route path="/LogoutPage" component={LogoutPage} />
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/item/:id" component={ItemPage} />
                 <Route path="/cart/:id?" component={CartPage} />

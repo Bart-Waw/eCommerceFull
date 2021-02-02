@@ -31,7 +31,7 @@ export const removeFromCart = (itemID) => (dispatch, getState) => {
     }
 }
 
-export const saveShipping = (data) => (dispatch,) => {
+export const saveShipping = (data) => (dispatch) => {
     try{
         dispatch({type: "SAVE_SHIPPING", payload: data});
     }
@@ -40,7 +40,7 @@ export const saveShipping = (data) => (dispatch,) => {
     }
 }
 
-export const savePayment = (data) => (dispatch,) => {
+export const savePayment = (data) => (dispatch) => {
     try{
         dispatch({type: "SAVE_PAYMENT", payload: data});
     }

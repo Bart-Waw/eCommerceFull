@@ -41,3 +41,34 @@ export const isAdmin = (req, res, next) => {
         return res.status(401).send({ msg: 'Admin token is invalid' });
     }
 }
+
+/* App.js sidebar
+   
+            function openMenu () {
+                document.querySelector(".sidebar").classList.add("open");
+            }
+
+            function closeMenu () {
+                document.querySelector(".sidebar").classList.remove("open");
+            }
+
+
+            <div className='header-link'><button onClick={openMenu}>☰</button></div>
+
+
+
+            <aside className="sidebar">
+                <div className="sidebar-header">
+                    <h3>Shopping Categories</h3>
+                    <button onClick={closeMenu}>✖</button>
+                </div>
+                <ul className="sidebar-main">
+                    <li>
+                        <button>Clothing</button>
+                    </li>
+                    <li>
+                        <button>Footwear</button>
+                    </li>
+                </ul>
+            </aside>
+*/

@@ -7,7 +7,7 @@ export const listItems = () => async (dispatch) => {
         dispatch({type: 'ITEM_LIST_SUCCESS', payload: data});
     }
     catch(error) {
-        dispatch({type: 'ITEM_LIST_FAIL', payload: error.message});
+        dispatch({type: 'ITEM_LIST_FAIL', payload: error.msg});
     }
 }
 
@@ -18,7 +18,7 @@ export const detailsItem = (itemID) => async (dispatch) => {
         dispatch({type: 'ITEM_DETAILS_SUCCESS', payload: data})
     }
     catch(error) {
-        dispatch({type: 'ITEM_DETAILS_FAIL', payload: error.message});
+        dispatch({type: 'ITEM_DETAILS_FAIL', payload: error.msg});
     }
 }
 
@@ -40,7 +40,7 @@ export const saveItem = (item) => async (dispatch, getState) => {
         }
     }
     catch (error) {
-        dispatch({ type: 'ITEM_SAVE_FAIL', payload: error.message});
+        dispatch({ type: 'ITEM_SAVE_FAIL', payload: error.msg});
     }
 }
 

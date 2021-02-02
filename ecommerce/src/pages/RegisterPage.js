@@ -22,7 +22,16 @@ export function RegisterPage (props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(register(name, email, password));
+        if (password !== repeatPassword) {
+            window.alert('passwords do not match')
+        }
+        if (!password || !name || !email) {
+            window.alert('please complete all input fields')
+        }
+        else {
+            dispatch(register(name, email, password));
+            window.location.reload(false);
+        }
     };
 
     return (

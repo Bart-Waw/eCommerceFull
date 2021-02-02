@@ -13,8 +13,13 @@ export function ShippingPage (props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(saveShipping({address, city, postcode, country}));
-        props.history.push('payment');
+        if (!address || !city || !postcode || !country) {
+            window.alert('please complete all input fields')
+        }
+        else {
+            dispatch(saveShipping({address, city, postcode, country}));
+            props.history.push('payment');
+        }
     };
 
     return (

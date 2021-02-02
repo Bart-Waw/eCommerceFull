@@ -13,7 +13,6 @@ export function LoginPage (props) {
 
     const redirect = props.location.search?props.location.search.split('=')[1]:'/';
 
-
     useEffect(() => {
         if (userInfo) {
             props.history.push(redirect)
@@ -24,7 +23,12 @@ export function LoginPage (props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(login(email, password));
+        if (!password || !email) {
+            window.alert('please provide both email and password to continue')
+        }
+        else {
+            dispatch(login(email, password));
+        }  
     };
 
     return (
@@ -39,11 +43,11 @@ export function LoginPage (props) {
                             {error && {error}}
                         </li>
                         <li>
-                            <label for='email'>Email</label>
+                            <label htmlFor='email'>Email</label>
                             <input type='email' name='email' id='email' onChange={(event) => setEmail(event.target.value)}></input>
                         </li>
                         <li>
-                            <label for='password'>Password</label>
+                            <label htmlFor='password'>Password</label>
                             <input type='password' name='password' id='password' onChange={(event) => setPassword(event.target.value)}></input>
                         </li>
                         <li>

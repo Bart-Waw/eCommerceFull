@@ -5,25 +5,19 @@ export function PlaceOrderPage (props) {
     let total = 0;
     
     const cart = useSelector(state => state.cart);
-    const { cartItems, shipping, payment } = cart;
+    const { cartItems } = cart;
 
-    if (!shipping.address) {
-        props.history.push('/shipping');
-    }
-
-    if (!payment.paymentMethod) {
-        props.history.push('/payment');
-    }
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
 
     cartItems.forEach(item => total += item.price * item.qty);
 
     const handlePlaceOrder = () => {
+        if (!userInfo) {
+            window.alert('please log in to proceed')
+        }
         //
     };
-
-
-    useEffect(() => {
-    }, []);
 
     return (
         <div className='placeorder'>
@@ -75,7 +69,7 @@ export function PlaceOrderPage (props) {
             </div>
             </div>
             <div className='placeorder-action'>
-                    <button className='primary-button' onClick={handlePlaceOrder()}>Place Order</button>
+                    <button className='primary-button' onClick={handlePlaceOrder}>Place Order</button>
             </div>
         </div>
         )

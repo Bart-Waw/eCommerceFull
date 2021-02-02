@@ -12,6 +12,10 @@ export function userLoginReducer(state = {}, action) {
                 loading: false,
                 error: action.payload
             }
+        case "USER_LOGOUT":
+            return {
+                userInfo: {}
+            }
         default:
             return state
     }
