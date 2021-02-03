@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export function LogoutPage () {
+export function orderCompletePage () {
 
     return (
             <div className='log-out'>
-                <h2>You have successfully logged out</h2>
+                <h2>Your order has been placed</h2>
                 <div className='return-home'>
                     <Link to='/'>Return to HomePage</Link>
                 </div>

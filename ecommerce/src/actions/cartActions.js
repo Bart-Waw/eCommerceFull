@@ -31,6 +31,15 @@ export const removeFromCart = (itemID) => (dispatch, getState) => {
     }
 }
 
+export const clearCart = () => (dispatch) => {
+    try{
+        dispatch({type: "CLEAR_CART", payload: null});
+    }
+    catch(error) {
+        //
+    }
+}
+
 export const saveShipping = (data) => (dispatch) => {
     try{
         dispatch({type: "SAVE_SHIPPING", payload: data});

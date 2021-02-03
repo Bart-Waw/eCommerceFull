@@ -28,6 +28,7 @@ body {
 }
 
 .header {
+  z-index: 15;
   grid-area: header;
   display: flex;
   justify-content: space-between;
@@ -84,6 +85,7 @@ body {
   grid-area: main;
   display: flex;
   width: 100%;
+  z-index: 5;
 }
 
 .content {
@@ -93,6 +95,7 @@ body {
 }
 
 .footer {
+  z-index: 15;
   grid-area: footer;
   background-color:rgb(46, 115, 161);
   color:white;

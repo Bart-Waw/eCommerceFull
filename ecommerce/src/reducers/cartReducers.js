@@ -12,11 +12,12 @@ export function cartReducer(state = {cartItems: [], shipping: {}, payment: {}}, 
                 cartItems: [...state.cartItems, item]
             }
         case 'REMOVE_ITEM_FROM_CART':
-            
             const itemToDelete = state.cartItems.findIndex(x => x._id === action.payload);
             let newCart = state.cartItems;
             newCart.splice(itemToDelete, 1);
             return {cartItems: newCart};
+        case 'CLEAR_CART':
+            return {cartItems: []};
         case 'SAVE_SHIPPING':
             return {...state, shipping: action.payload}
         case "SAVE_PAYMENT":

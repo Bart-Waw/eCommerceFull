@@ -12,6 +12,8 @@ import { PaymentPage } from './pages/paymentPage';
 import { PlaceOrderPage } from './pages/placeOrderPage';
 import { logout } from './actions/userActions';
 import { LogoutPage } from './pages/LogoutPage';
+import { orderCompletePage } from './pages/orderCompletePage';
+import { OrdersPage } from './pages/ordersPage';
 
 // sidebar moved to utils.js
 
@@ -37,7 +39,7 @@ function App() {
                 <div className="header-links">
                     {
                         userInfo ?
-                            <div className='logged-link'>Logged as:<div className='header-link'><Link to ={ userInfo.name === 'Admin' ? '/items' : '/profile'}>{userInfo.name}</Link></div></div>
+                            <div className='logged-link'>Logged as:<div className='header-link'><Link to ={ userInfo.name === 'Admin' ? '/orders' : '/orders/'+ userInfo._id}>{userInfo.name}</Link></div></div>
                         :
                             <div className='header-link'><Link to ='/Login'>Log In</Link></div>
                     }
@@ -59,6 +61,8 @@ function App() {
                 <Route path="/shipping" component={ShippingPage} />
                 <Route path="/payment" component={PaymentPage} />
                 <Route path="/placeOrder" component={PlaceOrderPage} />
+                <Route path="/orders" component={OrdersPage} />
+                <Route path="/orderComplete" component={orderCompletePage} />
                 <Route path="/" component={HomePage} exact={true} />
                 </div>
             </main>

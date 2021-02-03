@@ -22,7 +22,6 @@ export function ItemsPage (props) {
     const { items } = itemList;
     const dispatch = useDispatch();
 
-
     useEffect(() => {
         if (successSave) {
             setModalVisible(false);

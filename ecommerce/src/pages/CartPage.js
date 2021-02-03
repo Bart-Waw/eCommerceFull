@@ -24,10 +24,10 @@ export function CartPage(props) {
         <div className='cart'>
             <div className='cart-list'>
                 <ul className='cart-list-container'>
-                    <li key ='cart-page-name'>
+                    <li key='cart-page-name'>
                         <h3>Shopping Cart</h3>
                     </li>
-                    <li key ='cart-page-items'>
+                    <li key='cart-page-items'>
                         {
                             cartItems.length === 0 ?
                             <div>Your cart is empty</div> :

@@ -1,7 +1,21 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart } from '../actions/cartActions';
+import { placeOrder } from '../actions/orderActions';
+import Cookie from 'js-cookie';
 
 export function PlaceOrderPage (props) {
+    const dispatch = useDispatch();
+
+    const [userID, setUserID] = useState('');
+    const [items, setItems] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [postcode, setPostcode] = useState('');
+    const [country, setCountry] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('');
+    const [price, setPrice] = useState('');
+
     let total = 0;
     
     const cart = useSelector(state => state.cart);
@@ -12,11 +26,27 @@ export function PlaceOrderPage (props) {
 
     cartItems.forEach(item => total += item.price * item.qty);
 
-    const handlePlaceOrder = () => {
+
+
+    const handlePlaceOrder = async (event) => {
+        
         if (!userInfo) {
             window.alert('please log in to proceed')
         }
-        //
+        else {
+            await setUserID(userInfo._id);
+            await setItems(cartItems);
+            await setAddress(cart.shipping.address);
+            await setCity(cart.shipping.city);
+            await setPostcode(cart.shipping.postcode);
+            await setCountry(cart.shipping.country);
+            await setPaymentMethod(cart.payment.paymentMethod);
+            await setPrice(total);
+            dispatch(placeOrder(userID, items, address, city, postcode, country, paymentMethod, price));
+            props.history.push('orderComplete');
+            dispatch(clearCart());
+            Cookie.set('cartItems', []);
+        }
     };
 
     return (
@@ -69,7 +99,7 @@ export function PlaceOrderPage (props) {
             </div>
             </div>
             <div className='placeorder-action'>
-                    <button className='primary-button' onClick={handlePlaceOrder}>Place Order</button>
+                <button className='primary-button' type='submit' onClick={handlePlaceOrder}>Place Order</button>
             </div>
         </div>
         )
