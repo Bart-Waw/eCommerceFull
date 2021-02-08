@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../actions/userActions';
+import { login, register } from '../actions/userActions';
 
 export function RegisterPage (props) {
 
@@ -30,7 +30,7 @@ export function RegisterPage (props) {
         }
         else {
             dispatch(register(name, email, password));
-            window.location.reload(false);
+            dispatch(login(email, password));
         }
     };
 

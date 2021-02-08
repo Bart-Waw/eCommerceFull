@@ -25,10 +25,7 @@ export function ItemPage (props) {
     return (
         loading? <div className="loading"><img src='../images/loading.gif' alt="loading"></img></div> : 
         error? <div>{error}</div> : 
-            <div>
-                <div>
-                    <Link to='/'>Return to HomePage</Link>
-                </div>
+            <div className='itemDetailsContainer'>
                 <div className='itemDetails'>
                     <div className='itemMain'>
                         <h1 className="item-name">{item.name}</h1>
@@ -59,6 +56,9 @@ export function ItemPage (props) {
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div>
+                    <Link to='/'><button className='secondary-button'>Return to HomePage</button></Link>
                 </div>
             </div>
         )

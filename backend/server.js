@@ -1,34 +1,23 @@
 import express from 'express';
-import config from './config';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import userRouter from './Routes/userRoute';
 import itemRouter from './Routes/itemRoute';
 import orderRouter from './Routes/orderRoute';
 import bodyParser from 'body-parser';
-import Item from './models/itemModel';
-
+const pool = require('./db');
 
 dotenv.config();
 
-const mongodbURL = config.MONGODB_URL;
-mongoose.connect(mongodbURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true 
-}).catch(error => console.log(error.reason));
-
 const app = express();
+app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use('/api/users', userRouter);
 app.use('/api/items', itemRouter);
 app.use('/api/orders', orderRouter);
 
 app.get('/api/item/:id', async (req, res, next) => {
-    console.log(req.params.id);
-    const itemID = req.params.id;
-    const item = await Item.findOne({_id : itemID});
-    res.send(item);
+    const item = await pool.query(`select * from items where _id = '${req.params.id}';`)
+    res.send(item.rows[0]);
 });
 
 /*

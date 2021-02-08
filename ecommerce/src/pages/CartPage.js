@@ -52,12 +52,12 @@ export function CartPage(props) {
                         }
                     </li>
                 </ul>
-                {cartItems.length !== 0 &&
-                    <div className='cart-action'>
-                        <Link to='/Shipping'><button className='primary-button'>Checkout</button></Link>
-                    </div>  
-                }
             </div>
+            {cartItems.length !== 0 &&
+                <div className='cart-action'>
+                    <Link to='/Shipping'><button className='primary-button'>Checkout</button></Link>
+                </div>  
+            }
         </div>
         )
 }

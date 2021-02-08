@@ -6,7 +6,7 @@ export const getToken = (user) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        isAdmin: user.isAdmin
+        isadmin: user.isadmin
     }, 
     config.JWT_SECRET, {
         expiresIn: '48h'
@@ -34,7 +34,7 @@ export const isAuth = (req, res, next) => {
 }
 
 export const isAdmin = (req, res, next) => {
-    if(req.user && req.user.isAdmin) {
+    if(req.user && req.user.isadmin) {
         return next();
     }
     else {

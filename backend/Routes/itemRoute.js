@@ -1,18 +1,21 @@
 import express from 'express';
-import Item from '../models/itemModel';
 import { isAdmin, isAuth } from '../util';
+const pool = require('../db');
 
 const itemRouter = express.Router();
 
 itemRouter.get('/', async (req, res, next) => {
-    const items = await Item.find({});
-    res.send(items);
+    const items = await pool.query('select * from items;')
+    res.send(items.rows);
 });
 
+
+
 itemRouter.get('/:id', async (req, res, next) => {
-    const item = await Item.findOne({_id: req.params.id});
+    const item = await pool.query(`select * from items where _id = '${req.params.id}';`)
+    console.log(item.rows[0]);
     if (item) {
-        res.send(item);
+        res.send(item.rows[0]);
     }
     else {
         res.status(404).send({msg: 'Item not found'});
@@ -21,17 +24,18 @@ itemRouter.get('/:id', async (req, res, next) => {
 });
 
 itemRouter.post('/', isAuth, isAdmin, async (req, res, next) => {
-    const item = new Item({
+    const item = {
         name: req.body.name,
         price: req.body.price,
         image: req.body.image,
         category: req.body.category,
         stock: req.body.stock,
         description: req.body.description
-    });
-    const newItem = await item.save();
+    };
+    const newItem = await pool.query(`insert into items (name, price, image, category, stock, description) values
+    ('${item.name}', ${item.price}, '${item.image}', '${item.category}', ${item.stock}, '${item.description}');`)
     if (newItem) {
-        res.status(201).send({ msg: 'New item added', data: newItem });
+        res.status(201).send({ msg: 'New item added', data: newItem.rows[0] });
     }
     else {
         res.status(500).send({ msg: 'Invalid data' });
@@ -39,8 +43,8 @@ itemRouter.post('/', isAuth, isAdmin, async (req, res, next) => {
 });
 
 itemRouter.put('/:id', isAuth, isAdmin, async (req, res, next) => {
-    const itemID = req.params.id;
-    const item = await Item.findOne({_id : itemID});
+    const request = await pool.query(`select * from items where _id = '${req.params.id}';`)
+    const item = request.rows[0];
     if (item) {
         item.name = req.body.name;
         item.price = req.body.price;
@@ -48,9 +52,16 @@ itemRouter.put('/:id', isAuth, isAdmin, async (req, res, next) => {
         item.category = req.body.category;
         item.stock = req.body.stock;
         item.description = req.body.description;
-        const updatedItem = await item.save();
+        const updatedItem = await pool.query(`update items set 
+            name = '${item.name}', 
+            price = ${item.price}, 
+            image = '${item.image}', 
+            category = '${item.category}', 
+            stock = ${item.stock}, 
+            description = '${item.description}'
+            where _id = '${itemID}';`)
         if (updatedItem) {
-            res.status(200).send({ msg: 'Item updated', data: updatedItem });
+            res.status(200).send({ msg: 'Item updated', data: updatedItem.rows[0] });
         }
     }
     else {
@@ -59,9 +70,9 @@ itemRouter.put('/:id', isAuth, isAdmin, async (req, res, next) => {
 });
 
 itemRouter.delete('/:id', isAuth, isAdmin, async( req, res, next ) => {
-    const deletedItem = await Item.findOne({_id : req.params.id});
+    const deletedItem = await pool.query(`select * from items where _id = '${req.params.id}';`)
     if (deletedItem) {
-        await deletedItem.remove();
+        await pool.query(`delete from items where _id = '${req.params.id}';`)
         res.send({msg: 'Item removed'});
     }
     else {

@@ -42,9 +42,9 @@ export function OrdersPage (props) {
                     {orders && orders.map(order => (
                         <tr>
                             <td>{order._id}</td>
-                            <td>{order.items.map(item => <div>{item.qty} {item.name}</div>)}</td>
+                            <td>{order.items}</td>
                             <td>{order.address}, {order.city}, {order.postcode}, {order.country}</td>
-                            <td>{order.paymentMethod}</td>
+                            <td>{order.paymentmethod}</td>
                             <td>£{order.price}</td>
                         </tr>
                     ))}

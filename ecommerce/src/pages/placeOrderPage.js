@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from '../actions/cartActions';
 import { placeOrder } from '../actions/orderActions';
@@ -6,15 +6,6 @@ import Cookie from 'js-cookie';
 
 export function PlaceOrderPage (props) {
     const dispatch = useDispatch();
-
-    const [userID, setUserID] = useState('');
-    const [items, setItems] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [postcode, setPostcode] = useState('');
-    const [country, setCountry] = useState('');
-    const [paymentMethod, setPaymentMethod] = useState('');
-    const [price, setPrice] = useState('');
 
     let total = 0;
     
@@ -26,23 +17,12 @@ export function PlaceOrderPage (props) {
 
     cartItems.forEach(item => total += item.price * item.qty);
 
-
-
-    const handlePlaceOrder = async (event) => {
-        
+    const handlePlaceOrder = async () => {
         if (!userInfo) {
             window.alert('please log in to proceed')
         }
         else {
-            await setUserID(userInfo._id);
-            await setItems(cartItems);
-            await setAddress(cart.shipping.address);
-            await setCity(cart.shipping.city);
-            await setPostcode(cart.shipping.postcode);
-            await setCountry(cart.shipping.country);
-            await setPaymentMethod(cart.payment.paymentMethod);
-            await setPrice(total);
-            dispatch(placeOrder(userID, items, address, city, postcode, country, paymentMethod, price));
+            await dispatch(placeOrder(userInfo._id, cartItems, cart.shipping.address, cart.shipping.city, cart.shipping.postcode, cart.shipping.country, cart.payment.paymentMethod, total));
             props.history.push('orderComplete');
             dispatch(clearCart());
             Cookie.set('cartItems', []);
