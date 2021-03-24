@@ -4,7 +4,7 @@ This project was created as a part of a codecademy course.
 * Add and remove items from your cart.
 * Create an account and track your orders.
 
-Visit the page [here](tbc).
+Visit the page [here](https://ecommercefull.herokuapp.com).
 
 
 # Technologies used
